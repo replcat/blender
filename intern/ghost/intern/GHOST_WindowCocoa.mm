@@ -354,7 +354,7 @@ GHOST_WindowCocoa::GHOST_WindowCocoa(GHOST_SystemCocoa *systemCocoa,
     rect.size.height = height;
 
     NSWindowStyleMask styleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
-                                  NSWindowStyleMaskResizable;
+                                  NSWindowStyleMaskResizable | NSWindowStyleMaskFullSizeContentView;
     if (!is_dialog) {
       styleMask |= NSWindowStyleMaskMiniaturizable;
     }
@@ -365,6 +365,16 @@ GHOST_WindowCocoa::GHOST_WindowCocoa(GHOST_SystemCocoa *systemCocoa,
                                                 styleMask:styleMask
                                                   backing:NSBackingStoreBuffered
                                                     defer:NO];
+
+    /* Hide the titlebar */
+    [m_window setTitlebarAppearsTransparent:YES];
+    [m_window setTitleVisibility:NSWindowTitleHidden];
+
+    /* Hide the traffic light buttons */
+    [[m_window standardWindowButton:NSWindowCloseButton] setHidden:YES];
+    [[m_window standardWindowButton:NSWindowMiniaturizeButton] setHidden:YES];
+    [[m_window standardWindowButton:NSWindowZoomButton] setHidden:YES];
+
     /* By default, AppKit repositions the window in the context of the current "mainMonitor"
      * (the monitor which has focus), bypass this by forcing the window back into its correct
      * position. Since we use global screen coordinate indexed on the first, primary screen.

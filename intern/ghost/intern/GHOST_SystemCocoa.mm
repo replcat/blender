@@ -701,7 +701,7 @@ void GHOST_SystemCocoa::getMainDisplayDimensions(uint32_t &width, uint32_t &heig
     const NSRect contentRect = [NSWindow
         contentRectForFrameRect:frame
                       styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
-                                 NSWindowStyleMaskMiniaturizable)];
+                                 NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView)];
 
     width = contentRect.size.width;
     height = contentRect.size.height;
@@ -732,7 +732,7 @@ GHOST_IWindow *GHOST_SystemCocoa::createWindow(const char *title,
     const NSRect primaryScreenContentRect = [NSWindow
         contentRectForFrameRect:primaryScreenFrame
                       styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable |
-                                 NSWindowStyleMaskMiniaturizable)];
+                                 NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView)];
 
     const int32_t bottom = primaryScreenContentRect.size.height - top - height;
 
